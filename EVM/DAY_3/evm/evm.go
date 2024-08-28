@@ -48,11 +48,13 @@ func (evm *EVM) Run() error {
 		handler, exists := opcodeTable[op]
 		if !exists {
 			return evm.defaultHandler(op)
-		} else if err := handler.Handler(evm); err != nil {
+		}
+		dynamic_gas, err := handler.Handler(evm)
+		if err != nil {
 			return err
 		}
 
-		evm.DecrementGas(handler.GasCost)
+		evm.DecrementGas(handler.GasCost + dynamic_gas)
 
 		if !evm.stop_flag {
 			evm.pc++

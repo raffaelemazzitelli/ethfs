@@ -5,7 +5,7 @@ type OpCodeConfig struct {
 	StackInput  int
 	StackOutput int
 	GasCost     int
-	Handler     func(*EVM) error
+	Handler     func(*EVM) (int, error)
 }
 
 func (evm *EVM) initOpcodeTable() map[byte]OpCodeConfig {

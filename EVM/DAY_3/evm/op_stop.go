@@ -1,6 +1,6 @@
 package evm
 
-func (evm *EVM) opStop() error {
+func (evm *EVM) opStop() (int, error) {
 	evm.stop_flag = true
-	return nil
+	return 0, nil
 }
